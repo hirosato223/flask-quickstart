@@ -14,10 +14,16 @@ def hello():
     return "Hello, World"
 
 
+@app.route("/login")
+def login():
+    return "login"
+
+
 @app.route("/user/<username>")
-def show_user_profile(username):
+def profile(username):
     # show the user profile for user
-    return "User %s" % escape(username)
+    # return "User %s" % escape(username)
+    return "{}'s profile".format(escape(username))
 
 
 @app.route("/post/<int:post_id>")
@@ -40,3 +46,11 @@ def projects():
 @app.route("/about")
 def about():
     return "The about page"
+
+
+# review
+with app.test_request_context():
+    print(url_for("index"))
+    print(url_for("login"))
+    print(url_for("login", next="/"))
+    print(url_for("profile", username="John Doe"))
